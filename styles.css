@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    text-align: center;
+}
+
+.cookie {
+    width: 200px;
+    height: 200px;
+    background-image: url('https://openseauserdata.com/files/223b76e3d730f0e5a6cf1f15ee49cf56.png');
+    background-size: cover;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.cookie:hover {
+    transform: scale(1.1);
+}
+
+.cookies-count {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
