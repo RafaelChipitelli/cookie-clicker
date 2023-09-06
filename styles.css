@@ -7,6 +7,7 @@ body {
     background-color: #f4f4f4;
     column-gap: 0px;
     row-gap: 0px;
+    overflow-y: hidden;
 }
 
 .container {
