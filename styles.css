@@ -38,6 +38,10 @@ h1 { /* Remova a margem padrão para h1 e p */
     user-select: none;
 }
 
+.user-select-none {
+    user-select: none;
+}
+
 .cookie:hover {
     transform: scale(1.1);
 }

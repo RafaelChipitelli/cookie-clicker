@@ -31,7 +31,7 @@ buyAutoClickButton.addEventListener('click', () => {
         cookies -= autoClickPrice;
         autoClicks += 10;
         autoClickPrice += 100;
-        buyAutoClickButton.textContent = `Comprar Auto Click (${autoClickPrice} cookies)`;
+        buyAutoClickButton.textContent = `Comprar Auto Click: ${autoClickPrice} Cookies`;
         updateButtons();
     }
 });
