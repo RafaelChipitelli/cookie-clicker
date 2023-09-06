@@ -22,7 +22,7 @@ function updateButtons() {
 }
 
 function autoClick() {
-    cookies += autoClicks;
+    cookies += (autoClicks * clickMultiplier); // Aplica o bônus aos cookies ganhos com autoclicks
     updateCookiesCount();
 }
 
