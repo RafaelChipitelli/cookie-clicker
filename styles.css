@@ -11,12 +11,16 @@ body {
 }
 
 .container {
+    display: flex;
     text-align: center;
     margin: 0;
+    flex-direction: column;
+    align-items: center;
 }
 
-h1, p { /* Remova a margem padrão para h1 e p */
+h1 { /* Remova a margem padrão para h1 e p */
     margin: 0;
+    margin-bottom: 16px;
 }
 
 .container p {
@@ -31,7 +35,6 @@ h1, p { /* Remova a margem padrão para h1 e p */
     background-size: cover;
     cursor: pointer;
     transition: transform 0.1s;
-    margin-left: 18px;
     user-select: none;
 }
 
