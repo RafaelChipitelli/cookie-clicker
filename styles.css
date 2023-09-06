@@ -7,8 +7,6 @@ body {
     background-color: #f4f4f4;
     column-gap: 0px;
     row-gap: 0px;
-    max-height: 100vh;
-    height: 100%;
     overflow-y: hidden;
 }
 
