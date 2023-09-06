@@ -12,9 +12,10 @@ body {
 
 .container {
     text-align: center;
+    margin: 0;
 }
 
-.store h2 {
+h1, p { /* Remova a margem padrão para h1 e p */
     margin: 0;
 }
 
