@@ -54,3 +54,8 @@ cookie.addEventListener('click', () => {
     updateCookiesCount();
     updateButtons();
 });
+
+// Tenta tira o zoom da pagina
+document.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+});
