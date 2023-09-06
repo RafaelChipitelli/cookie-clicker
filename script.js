@@ -5,6 +5,8 @@ let bonusActive = false; // Variável para rastrear se o bônus está ativo
 let bonusTimeout; // Variável para rastrear o tempo limite do bônus
 let clickGoal = 10; // Variável para setar o bonus duplo
 const timeForBonusOff = 1000; // Constante para o tempo até acabar o bonus em milessegundos
+const clickThreshold = 100; // Número de cliques necessários para o bônus triplo
+let clickTimestamp = 0; // Timestamp do último clique
 
 const cookie = document.getElementById('cookie');
 const cookiesCount = document.getElementById('cookiesCount');
@@ -38,6 +40,7 @@ buyAutoClickButton.addEventListener('click', () => {
 
 function applyClickMultiplier() {
     clickMultiplier = 2;
+    bonusMessage.textContent = 'Bônus Ativo: Cookies em Dobro!';
     bonusMessage.style.display = 'block'; // Exibe a mensagem de bônus
 
     // Define o temporizador do bônus para desativar o bônus após 1 segundo
@@ -68,6 +71,17 @@ setInterval(autoClick, 1000);
 updateButtons();
 
 cookie.addEventListener('click', () => {
+    const currentTimestamp = Date.now();
+
+    // Verifique se o tempo entre cliques é inferior a 1 segundo
+    if (currentTimestamp - clickTimestamp < timeForBonusOff) {
+        clickCount++;
+    } else {
+        clickCount = 1;
+    }
+
+    clickTimestamp = currentTimestamp;
+
     if (bonusActive) {
         cookies += clickMultiplier; // Aplica o bônus
     } else {
@@ -75,9 +89,11 @@ cookie.addEventListener('click', () => {
     }
     updateCookiesCount();
     updateButtons();
-    clickCount++; // Incrementa a contagem de cliques
 
-    if (clickCount >= clickGoal && !bonusActive) { // Ative o bônus após 10 cliques, se não estiver ativo
+    // Verifica se o número de cliques atingiu o limite para o bônus triplo
+    if (clickCount >= clickThreshold) {
+        applyTripleClickBonus();
+    } else if (clickCount >= clickGoal && !bonusActive) {
         applyClickMultiplier();
         bonusActive = true; // Bônus ativado
     }
@@ -95,6 +111,24 @@ cookie.addEventListener('click', () => {
         }, timeForBonusOff); // segundos em milissegundos
     }
 });
+
+function applyTripleClickBonus() {
+    clickMultiplier = 3;
+    bonusMessage.textContent = 'Bônus Ativo: Cookies em Triplo!';
+    bonusMessage.style.display = 'block'; // Exibe a mensagem de bônus
+    clickCount = 0; // Reinicia a contagem após ativar o bônus
+    bonusActive = true; // Bônus ativado
+
+    // Adicione um if aqui para desativar o bônus somente se o tempo for maior que 1 segundo
+    if (clickCount >= clickGoal && bonusActive) {
+        bonusTimeout = setTimeout(() => {
+            clickCount = 0;
+            clickMultiplier = 1;
+            bonusMessage.style.display = 'none'; // Oculta a mensagem de bônus
+            bonusActive = false; // Bônus desativado
+        }, timeForBonusOff); // segundos em milissegundos
+    }
+}
 document.addEventListener('gesturestart', function (e) {
     e.preventDefault();
 });
