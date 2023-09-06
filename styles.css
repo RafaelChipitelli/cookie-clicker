@@ -1,14 +1,26 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #f4f4f4;
+    column-gap: 0px;
+    row-gap: 0px;
 }
 
 .container {
     text-align: center;
+}
+
+.store h2 {
+    margin: 0;
+}
+
+.container p {
+    margin: 0; /* Remova a margem padrão do elemento p */
+    margin-top: 16px;
 }
 
 .cookie {
@@ -52,4 +64,39 @@ body {
     100% {
         transform: scale(1);
     }
+}
+
+.store {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.buy-button:disabled {
+    background-color: #a5c2b5;
+    cursor: default;
+}
+
+.buy-button:disabled:hover {
+    background-color: #a5c2b5;
+    cursor: default;
+}
+
+.buy-button {
+    width: 150%;
+    padding: 8px 0;
+    border: none;
+    background-color: #119759;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 16px;
+    max-width: 150%;
+}
+
+.buy-button:hover {
+    background-color: #27d61a;
 }
