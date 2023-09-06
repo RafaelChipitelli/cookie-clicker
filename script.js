@@ -30,7 +30,19 @@ buyAutoClickButton.addEventListener('click', () => {
 });
 
 function updateCookiesCount() {
+    const previousCookies = parseInt(cookiesCount.textContent) || 0; // Obtém o valor anterior
     cookiesCount.textContent = cookies;
+
+    if (cookies > previousCookies) {
+        // Se a quantidade de cookies aumentou, aplique a animação
+        cookiesCount.classList.remove('cookie-change');
+        cookie.classList.add('cookie-change');
+        setTimeout(() => {
+            cookie.classList.remove('cookie-change');
+        }, 100); // Tempo da animação em milissegundos
+    }
+
+    updateButtons();
 }
 
 setInterval(autoClick, 1000); // Chama a função autoClick a cada 1 segundo
