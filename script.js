@@ -1,27 +1,29 @@
-let cookies = 0;
-let clickMultiplier = 1;
+// Variáveis globais para rastrear o estado do jogo
+let cookies = 0; // Quantidade de cookies
+let clickMultiplier = 1; // Multiplicador de cliques
 let clickCount = 0; // Contagem de cliques
-let bonusActive = false; // Variável para rastrear se o bônus está ativo
-let bonusTimeout; // Variável para rastrear o tempo limite do bônus
-let clickGoal = 10; // Variável para setar o bonus duplo
-const timeForBonusOff = 1000; // Constante para o tempo até acabar o bonus em milissegundos
-const clickThreshold = 100; // Número de cliques necessários para o bônus triplo
+let bonusActive = false; // Rastreia se o bônus está ativo
+let bonusTimeout; // Limite de tempo do bônus
+let clickGoal = 10; // Meta para acionar o bônus duplo
+const timeForBonusOff = 1000; // Tempo para desligar o bônus em milissegundos
+const clickThreshold = 100; // Número de cliques necessário para o bônus triplo
 let clickTimestamp = 0; // Timestamp do último clique
 
-// Adicione estas variáveis para rastrear o estado dos multiplicadores
+// Variáveis relacionadas ao multiplicador
 let multiplierActive = false; // Verifica se o multiplicador está ativo
-let multiplierTimeout; // Tempo limite para desativar o multiplicador
+let multiplierTimeout; // Limite de tempo do multiplicador
 const multiplierDuration = 10000; // Duração do multiplicador em milissegundos
 const multiplierValue = 5; // Valor do multiplicador
 
-const cookie = document.getElementById('cookie');
-const cookiesCount = document.getElementById('cookiesCount');
-const buyAutoClickButton = document.getElementById('buyAutoClick');
-const buyMultiplierButton = document.getElementById('buyMultiplier5-10s'); // Botão de multiplicador 5x por 10 segundos
-let bonusMultiplicador = false;
-const bonusMessage = document.getElementById('bonusMessage'); // Parágrafo de bônus
-let autoClicks = 0;
-let autoClickPrice = 100;
+// Elementos da interface do usuário
+const cookie = document.getElementById('cookie'); // Elemento do cookie
+const cookiesCount = document.getElementById('cookiesCount'); // Exibição da quantidade de cookies
+const buyAutoClickButton = document.getElementById('buyAutoClick'); // Botão para comprar autoclique
+const buyMultiplierButton = document.getElementById('buyMultiplier5-10s'); // Botão para comprar multiplicador
+let bonusMultiplicador = false; // Rastreia se o bônus do multiplicador está ativo
+const bonusMessage = document.getElementById('bonusMessage'); // Parágrafo para exibir mensagens de bônus
+let autoClicks = 0; // Número de autocliques por segundo
+let autoClickPrice = 100; // Preço dos autocliques
 
 function updateButtons() {
     if (cookies >= autoClickPrice) {
