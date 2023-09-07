@@ -18,6 +18,7 @@ const cookie = document.getElementById('cookie');
 const cookiesCount = document.getElementById('cookiesCount');
 const buyAutoClickButton = document.getElementById('buyAutoClick');
 const buyMultiplierButton = document.getElementById('buyMultiplier5-10s'); // Botão de multiplicador 5x por 10 segundos
+let bonusMultiplicador = false;
 const bonusMessage = document.getElementById('bonusMessage'); // Parágrafo de bônus
 let autoClicks = 0;
 let autoClickPrice = 100;
@@ -102,8 +103,14 @@ cookie.addEventListener('click', () => {
     clickTimestamp = currentTimestamp;
 
     // Aplica o bônus aos cliques no cookie
-    const clickBonus = bonusActive ? clickMultiplier * multiplierValue : clickMultiplier;
-    cookies += clickBonus;
+    if (bonusMultiplicador) {
+        const clickBonus = bonusActive ? clickMultiplier * multiplierValue : clickMultiplier;
+        cookies += clickBonus;
+    } else {
+        const clickBonus = bonusActive ? clickMultiplier : clickMultiplier;
+        cookies += clickBonus;
+    }
+    
     
     updateCookiesCount();
     updateButtons();
@@ -168,6 +175,7 @@ function activateMultiplier(multiplierValue, duration) {
 
         // Bônus do multiplicador desativado
         multiplierActive = false;
+        bonusMultiplicador = false
     }, duration);
 }
 
@@ -192,6 +200,8 @@ buyMultiplierButton.addEventListener('click', () => {
 
             // Desabilite o botão após a compra
             buyMultiplierButton.setAttribute('disabled', 'disabled');
+
+            bonusMultiplicador = true
         }
     }
 });
