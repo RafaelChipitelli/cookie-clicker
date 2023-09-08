@@ -27,26 +27,31 @@ let autoClickPrice = 100; // Preço dos autocliques
 
 function updateButtons() {
     if (cookies >= autoClickPrice) {
-        buyAutoClickButton.removeAttribute('disabled');
+        buyAutoClickButton.disabled = false;
     } else {
-        buyAutoClickButton.setAttribute('disabled', 'disabled');
+        buyAutoClickButton.disabled = true;
     }
 
     // Atualize o botão do multiplicador com base no estado do multiplicador
     if (!multiplierActive && cookies >= 1000 ) {
-        buyMultiplierButton.removeAttribute('disabled');
+        buyMultiplierButton.disabled = false;
     } else {
-        buyMultiplierButton.setAttribute('disabled', 'disabled');
+        buyMultiplierButton.disabled = true;
     }
 }
 
 function autoClick() {
-    cookies += (autoClicks * clickMultiplier); // Aplica o bônus aos cookies ganhos com autoclicks
-    updateCookiesCount();
+    if (typeof clickMultiplier === 'number') {
+        cookies += (autoClicks * clickMultiplier); // Aplica o bônus aos cookies ganhos com autoclicks
+        updateCookiesCount();
 
-    // Verifique se o multiplicador está ativo e aplique-o aos cookies ganhos com o autoclique
-    if (multiplierActive) {
-        cookies += (autoClicks * clickMultiplier * multiplierValue);
+        // Verifique se o multiplicador está ativo e aplique-o aos cookies ganhos com o autoclique
+        if (multiplierActive) {
+            cookies += (autoClicks * clickMultiplier * multiplierValue);
+        }
+    } else {
+        // Handle the case when clickMultiplier is not a number
+        // For example, you can set a default value or display an error message
     }
 }
 
@@ -148,11 +153,12 @@ function applyTripleClickBonus() {
 
     // Adicione um if aqui para desativar o bônus somente se o tempo for maior que 1 segundo
     if (clickCount >= clickGoal && bonusActive) {
-        bonusTimeout = setTimeout(() => {
+        bonusInterval = setInterval(() => {
             clickCount = 0;
             clickMultiplier = 1;
             bonusMessage.style.display = 'none'; // Oculta a mensagem de bônus
             bonusActive = false; // Bônus desativado
+            clearInterval(bonusInterval);
         }, timeForBonusOff); // segundos em milissegundos
     }
 }
@@ -167,18 +173,27 @@ function activateMultiplier(multiplierValue, duration) {
     // Exiba a mensagem de bônus
     bonusMessagex.style.display = 'block';
 
-    // Defina um temporizador para desativar o multiplicador após a duração especificada
-    multiplierTimeout = setTimeout(() => {
-        // Redefina o multiplicador para 1 (desativado)
-        clickMultiplier = 1;
+    // Defina o tempo de início do multiplicador
+    const startTime = Date.now();
 
-        // Oculte a mensagem de bônus
-        bonusMessagex.style.display = 'none';
+    // Defina um intervalo para verificar o tempo decorrido e desativar o multiplicador quando a duração passar
+    const multiplierInterval = setInterval(() => {
+        // Verifique se a duração passou
+        if (Date.now() - startTime >= duration) {
+            // Redefina o multiplicador para 1 (desativado)
+            clickMultiplier = 1;
 
-        // Bônus do multiplicador desativado
-        multiplierActive = false;
-        bonusMultiplicador = false
-    }, duration);
+            // Oculte a mensagem de bônus
+            bonusMessagex.style.display = 'none';
+
+            // Bônus do multiplicador desativado
+            multiplierActive = false;
+            bonusMultiplicador = false;
+
+            // Limpe o intervalo
+            clearInterval(multiplierInterval);
+        }
+    }, 1000); // Verifica a cada segundo
 }
 
 
